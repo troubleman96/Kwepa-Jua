@@ -1,42 +1,107 @@
-<!-- app/templates/index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kwepajua - Sit Smart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f7f7f7; }
-        .box { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; }
-        h1 { color: #333; }
-        select, input, button { padding: 8px; width: 100%; margin: 10px 0; }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #facc15;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
     </style>
 </head>
-<body>
-    <div class="box">
-        <h1>🌞 Kwepajua</h1>
-        <form method="post">
-            <label>Select Route:</label>
-            <select name="route">
-                {% for r in routes %}
-                    <option value="{{ r }}">{{ r }}</option>
-                {% endfor %}
-            </select>
+<body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
 
-            <label>Hour (0-23):</label>
-            <input type="number" name="hour" min="0" max="23" required>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50 hidden">
+        <div class="text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-700 text-lg font-medium">Finding your shade side...</p>
+            <p class="text-gray-500 text-sm mt-2">Calculating sun position</p>
+        </div>
+    </div>
 
-            <label>Minute (0-59):</label>
-            <input type="number" name="minute" min="0" max="59" required>
+    <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full fade-in">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-yellow-600 mb-2">🌞 Kwepajua</h1>
+            <p class="text-gray-600">Find Your Shade Side</p>
+        </div>
 
-            <button type="submit">Check Sun Side</button>
+        <form method="post" action="/check-shade" class="space-y-6" id="kwepajuaForm">
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                    📍 Select Route
+                </label>
+                <select name="route" required
+                        class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors">
+                    <option value="">Choose your route...</option>
+                    {% for route in routes %}
+                        <option value="{{ route }}">{{ route }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🕐 Hour (0-23)
+                    </label>
+                    <input type="number" name="hour" min="0" max="23" required
+                           class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors" />
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🕐 Minute (0-59)
+                    </label>
+                    <input type="number" name="minute" min="0" max="59" required
+                           class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors" />
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-4 rounded-lg font-bold text-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                🔍 Check Shade Side
+            </button>
         </form>
 
-        {% if result %}
-            <hr>
-            <h3>Results for {{ result.route }} at {{ result.time }}</h3>
-            <p>Direction of Travel: {{ result.bearing }}°</p>
-            <p>Sun Azimuth: {{ result.sun_azimuth }}°</p>
-            <p><strong>{{ result.recommendation }}</strong></p>
-        {% endif %}
+        <div class="mt-6 text-center text-gray-500 text-sm">
+            <p>🚌 Works with all major daladala routes</p>
+        </div>
     </div>
+
+    <script>
+        document.getElementById('kwepajuaForm').addEventListener('submit', function(e) {
+            // Show loading screen
+            document.getElementById('loadingScreen').classList.remove('hidden');
+            
+            // Add a small delay to show the loading animation
+            setTimeout(() => {
+                // The form will submit normally
+            }, 100);
+        });
+
+        // Auto-fill current time
+        const now = new Date();
+        document.querySelector('input[name="hour"]').value = now.getHours();
+        document.querySelector('input[name="minute"]').value = now.getMinutes();
+    </script>
+
 </body>
 </html>
