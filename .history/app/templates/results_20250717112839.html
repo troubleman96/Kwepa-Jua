@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ current_lang }}" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ translations.app_name }} - {{ translations.results_title }}</title>
+    <title>Kwepajua - Results</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .result-card {
@@ -33,73 +33,71 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full result-card">
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-12 h-12 rounded-full shadow-lg">
-                <h1 class="text-3xl font-bold text-yellow-600">Matokeo ya Kwepa Jua</h1>
-            </div>
-            <p class="text-gray-600">{{ route }} {{ translations.at if current_lang == 'en' else 'saa' }} {{ time }}</p>
+            <h1 class="text-3xl font-bold text-yellow-600 mb-2">🌞 Kwepajua Results</h1>
+            <p class="text-gray-600">{{ route }} at {{ time }}</p>
         </div>
 
         {% if not is_daylight %}
             <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6 text-center">
-                <h2 class="text-2xl font-bold text-blue-700 mb-2">{{ translations.night_time }}</h2>
-                <p class="text-blue-600">{{ translations.night_message }}</p>
+                <h2 class="text-2xl font-bold text-blue-700 mb-2">🌙 Night Time</h2>
+                <p class="text-blue-600">The sun is not visible at this time. Shade recommendations don't apply during night hours.</p>
             </div>
         {% else %}
             <div class="space-y-4 mb-6">
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-700">{{ translations.travel_direction }}</span>
+                        <span class="text-gray-700">🧭 Travel Direction:</span>
                         <span class="font-bold text-gray-900">{{ bearing }}°</span>
                     </div>
                 </div>
 
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-700">{{ translations.sun_position }}</span>
+                        <span class="text-gray-700">☀️ Sun Position:</span>
                         <span class="font-bold text-gray-900">{{ sun_azimuth }}°</span>
                     </div>
                 </div>
 
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-700">{{ translations.sun_elevation }}</span>
+                        <span class="text-gray-700">📐 Sun Elevation:</span>
                         <span class="font-bold text-gray-900">{{ sun_elevation }}°</span>
                     </div>
                 </div>
             </div>
 
             <div class="recommendation-card bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-6 rounded-lg text-center mb-6">
-                <h2 class="text-2xl font-bold mb-2">{{ translations.recommendation }}</h2>
-                <p class="text-xl">{{ translations.sit_on }} <span class="font-bold uppercase">{{ translations.get(recommendation.lower(), recommendation) }}</span> {{ translations.side }}</p>
-                <p class="text-sm mt-2 opacity-90">{{ translations.for_shade }}</p>
+                <h2 class="text-2xl font-bold mb-2">🪑 Recommendation</h2>
+                <p class="text-xl">Sit on the <span class="font-bold uppercase">{{ recommendation }}</span> side</p>
+                <p class="text-sm mt-2 opacity-90">for maximum shade and comfort</p>
             </div>
         {% endif %}
 
         <div class="flex space-x-4">
             <a href="/" 
                class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold text-center hover:bg-gray-200 transition-colors">
-                {{ translations.check_another }}
+                🔄 Check Another Route
             </a>
             <button onclick="shareResult()" 
                     class="flex-1 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
-                {{ translations.share_result }}
+                📱 Share Result
             </button>
         </div>
     </div>
 
     <script>
         function shareResult() {
-            const shareText = `{{ translations.sit_on }} {{ translations[recommendation] }} {{ translations.side }} {{ translations.for_shade }} - {{ translations.app_name }}`;
             if (navigator.share) {
                 navigator.share({
-                    title: '{{ translations.app_name }}',
-                    text: shareText,
+                    title: 'Kwepajua - My Shade Side',
+                    text: `For {{ route }} at {{ time }}, sit on the {{ recommendation }} side for shade! 🌞`,
                     url: window.location.href
                 });
             } else {
-                navigator.clipboard.writeText(shareText).then(() => {
-                    alert('{{ "Result copied!" if current_lang == "en" else "Matokeo yamehifadhiwa!" }}');
+                // Fallback for browsers without Web Share API
+                const text = `For {{ route }} at {{ time }}, sit on the {{ recommendation }} side for shade! 🌞`;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Result copied to clipboard!');
                 });
             }
         }

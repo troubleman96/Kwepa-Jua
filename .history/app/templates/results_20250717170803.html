@@ -33,10 +33,7 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full result-card">
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-12 h-12 rounded-full shadow-lg">
-                <h1 class="text-3xl font-bold text-yellow-600">Matokeo ya Kwepa Jua</h1>
-            </div>
+            <h1 class="text-3xl font-bold text-yellow-600 mb-2">{{ translations.results_title }}</h1>
             <p class="text-gray-600">{{ route }} {{ translations.at if current_lang == 'en' else 'saa' }} {{ time }}</p>
         </div>
 

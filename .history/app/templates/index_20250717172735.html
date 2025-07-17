@@ -45,23 +45,28 @@
             margin: 0 auto;
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
         }
-        .loading-icon {
-            animation: bounce 1s ease-in-out infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
 
-
+    <!-- Language Selector -->
+    <div class="absolute top-4 left-4">
+        <form method="post" action="/set-language" class="flex gap-2">
+            <button type="submit" name="lang" value="en" 
+                    class="px-3 py-1 rounded {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-white text-gray-700' }} text-sm font-medium">
+                EN
+            </button>
+            <button type="submit" name="lang" value="sw" 
+                    class="px-3 py-1 rounded {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-white text-gray-700' }} text-sm font-medium">
+                SW
+            </button>
+        </form>
+    </div>
 
     <!-- Loading Screen -->
     <div id="loadingScreen" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50 hidden">
         <div class="text-center">
-            <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-20 h-20 rounded-full shadow-lg mx-auto mb-4 loading-icon">
+            <div class="loading-spinner mx-auto mb-4"></div>
             <p class="text-gray-700 text-lg font-medium">{{ translations.finding_shade }}</p>
             <p class="text-gray-500 text-sm mt-2">{{ translations.calculating_sun }}</p>
         </div>
@@ -70,20 +75,17 @@
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full fade-in">
         <div class="text-center mb-8">
             <div class="flex justify-between items-center mb-4">
-                <div class="flex-1"></div>
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-16 h-16 rounded-full shadow-lg">
-                <div class="flex-1 flex justify-end">
-                    <form method="post" action="/set-language" class="flex gap-2">
-                        <button type="submit" name="lang" value="en" 
-                                class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
-                            🇺🇸 EN
-                        </button>
-                        <button type="submit" name="lang" value="sw" 
-                                class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
-                            🇹🇿 SW
-                        </button>
-                    </form>
-                </div>
+                <div class="sun-icon">🌞</div>
+                <form method="post" action="/set-language" class="flex gap-2">
+                    <button type="submit" name="lang" value="en" 
+                            class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
+                        🇺🇸 EN
+                    </button>
+                    <button type="submit" name="lang" value="sw" 
+                            class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
+                        🇹� SW
+                    </button>
+                </form>
             </div>
             <h1 class="text-4xl font-bold text-yellow-600 mb-2">{{ translations.app_name }}</h1>
             <p class="text-gray-600">{{ translations.tagline }}</p>

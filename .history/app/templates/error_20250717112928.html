@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{ current_lang }}">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ translations.app_name }} - {{ translations.error_title }}</title>
+    <title>Kwepajua - Error</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full text-center">
         <div class="text-6xl mb-4">😅</div>
-        <h1 class="text-2xl font-bold text-red-600 mb-4">{{ translations.error_title }}</h1>
+        <h1 class="text-2xl font-bold text-red-600 mb-4">Oops! Something went wrong</h1>
         <p class="text-gray-600 mb-6">{{ error }}</p>
         
         <a href="/" 
            class="bg-yellow-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-yellow-600 transition-colors">
-            {{ translations.go_back_home }}
+            🏠 Go Back Home
         </a>
     </div>
 

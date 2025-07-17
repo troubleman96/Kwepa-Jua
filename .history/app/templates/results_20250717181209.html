@@ -32,12 +32,10 @@
 <body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full result-card">
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-12 h-12 rounded-full shadow-lg">
-                <h1 class="text-3xl font-bold text-yellow-600">Matokeo ya Kwepa Jua</h1>
-            </div>
-            <p class="text-gray-600">{{ route }} {{ translations.at if current_lang == 'en' else 'saa' }} {{ time }}</p>
+        <div class="text-center mb-8">
+            <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-16 h-16 rounded-full mx-auto mb-4 shadow-lg">
+            <h1 class="text-3xl font-bold text-yellow-600 mb-2">{{ translations.app_name }}</h1>
+            <p class="text-gray-600">{{ translations.results_for }} {{ route }}</p>
         </div>
 
         {% if not is_daylight %}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ current_lang }}" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6XJXNQDXC"></script>
@@ -7,11 +7,12 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-Z6XJXNQDXC');
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ translations.app_name }} - {{ translations.tagline }}</title>
+    <title>Kwepa Jua - Sit Smart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .loading-spinner {
@@ -33,70 +34,33 @@
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        .sun-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-        .loading-icon {
-            animation: bounce 1s ease-in-out infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
 
-
-
     <!-- Loading Screen -->
     <div id="loadingScreen" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50 hidden">
         <div class="text-center">
-            <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-20 h-20 rounded-full shadow-lg mx-auto mb-4 loading-icon">
-            <p class="text-gray-700 text-lg font-medium">{{ translations.finding_shade }}</p>
-            <p class="text-gray-500 text-sm mt-2">{{ translations.calculating_sun }}</p>
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-700 text-lg font-medium">Finding your shade side...</p>
+            <p class="text-gray-500 text-sm mt-2">Calculating sun position</p>
         </div>
     </div>
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full fade-in">
         <div class="text-center mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <div class="flex-1"></div>
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-16 h-16 rounded-full shadow-lg">
-                <div class="flex-1 flex justify-end">
-                    <form method="post" action="/set-language" class="flex gap-2">
-                        <button type="submit" name="lang" value="en" 
-                                class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
-                            🇺🇸 EN
-                        </button>
-                        <button type="submit" name="lang" value="sw" 
-                                class="px-3 py-2 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-gray-100 hover:bg-gray-200' }} text-sm font-medium transition-colors flex items-center gap-1">
-                            🇹🇿 SW
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <h1 class="text-4xl font-bold text-yellow-600 mb-2">{{ translations.app_name }}</h1>
-            <p class="text-gray-600">{{ translations.tagline }}</p>
+            <h1 class="text-4xl font-bold text-yellow-600 mb-2">🌞 Kwepa Jua</h1>
+            <p class="text-gray-600">Find Your Shade Side</p>
         </div>
 
         <form method="post" action="/check-shade" class="space-y-6" id="kwepajuaForm">
             <div>
                 <label class="block text-gray-700 font-semibold mb-2">
-                    {{ translations.select_route }}
+                    📍 Select Route
                 </label>
                 <select name="route" required
                         class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors">
-                    <option value="">{{ translations.choose_route }}</option>
+                    <option value="">Choose your route...</option>
                     {% for route in routes %}
                         <option value="{{ route }}">{{ route }}</option>
                     {% endfor %}
@@ -106,14 +70,14 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">
-                        {{ translations.hour_label }}
+                        🕐 Hour (0-23)
                     </label>
                     <input type="number" name="hour" min="0" max="23" required
                            class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors" />
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">
-                        {{ translations.minute_label }}
+                        🕐 Minute (0-59)
                     </label>
                     <input type="number" name="minute" min="0" max="59" required
                            class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors" />
@@ -122,21 +86,27 @@
 
             <button type="submit"
                     class="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-4 rounded-lg font-bold text-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
-                {{ translations.check_shade_btn }}
+                🔍 Check Shade Side
             </button>
         </form>
 
         <div class="mt-6 text-center text-gray-500 text-sm">
-            <p>{{ translations.works_with_routes }}</p>
+            <p>🚌 Works with all major daladala routes</p>
         </div>
     </div>
 
     <script>
         document.getElementById('kwepajuaForm').addEventListener('submit', function(e) {
+            // Show loading screen
             document.getElementById('loadingScreen').classList.remove('hidden');
-            setTimeout(() => {}, 100);
+            
+            // Add a small delay to show the loading animation
+            setTimeout(() => {
+                // The form will submit normally
+            }, 100);
         });
 
+        // Auto-fill current time
         const now = new Date();
         document.querySelector('input[name="hour"]').value = now.getHours();
         document.querySelector('input[name="minute"]').value = now.getMinutes();

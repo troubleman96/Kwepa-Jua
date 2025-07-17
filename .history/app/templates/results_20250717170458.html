@@ -33,10 +33,7 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full result-card">
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-12 h-12 rounded-full shadow-lg">
-                <h1 class="text-3xl font-bold text-yellow-600">Matokeo ya Kwepa Jua</h1>
-            </div>
+            <h1 class="text-3xl font-bold text-yellow-600 mb-2">{{ translations.results_title }}</h1>
             <p class="text-gray-600">{{ route }} {{ translations.at if current_lang == 'en' else 'saa' }} {{ time }}</p>
         </div>
 
@@ -71,7 +68,7 @@
 
             <div class="recommendation-card bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-6 rounded-lg text-center mb-6">
                 <h2 class="text-2xl font-bold mb-2">{{ translations.recommendation }}</h2>
-                <p class="text-xl">{{ translations.sit_on }} <span class="font-bold uppercase">{{ translations.get(recommendation.lower(), recommendation) }}</span> {{ translations.side }}</p>
+                <p class="text-xl">{{ translations.sit_on }} <span class="font-bold uppercase">{{ translations[recommendation] }}</span> {{ translations.side }}</p>
                 <p class="text-sm mt-2 opacity-90">{{ translations.for_shade }}</p>
             </div>
         {% endif %}
