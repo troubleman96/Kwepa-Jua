@@ -1,0 +1,42 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kwepajua - Sit Smart</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f7f7f7; }
+        .box { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; }
+        h1 { color: #333; }
+        select, input, button { padding: 8px; width: 100%; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🌞 Kwepajua</h1>
+        <form method="post">
+            <label>Select Route:</label>
+            <select name="route">
+                {% for r in routes %}
+                    <option value="{{ r }}">{{ r }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Hour (0-23):</label>
+            <input type="number" name="hour" min="0" max="23" required>
+
+            <label>Minute (0-59):</label>
+            <input type="number" name="minute" min="0" max="59" required>
+
+            <button type="submit">Check Sun Side</button>
+        </form>
+
+        {% if result %}
+            <hr>
+            <h3>Results for {{ result.route }} at {{ result.time }}</h3>
+            <p>Direction of Travel: {{ result.bearing }}°</p>
+            <p>Sun Azimuth: {{ result.sun_azimuth }}°</p>
+            <p><strong>{{ result.recommendation }}</strong></p>
+        {% endif %}
+    </div>
+</body>
+</html>
