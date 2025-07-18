@@ -12,8 +12,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ translations.app_name }} - {{ translations.tagline }}</title>
-    <link rel="icon" type="image/jpeg" href="/static/icon.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="/static/icon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .loading-spinner {
@@ -71,17 +69,18 @@
 
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full fade-in">
         <div class="text-center mb-8">
-            <div class="relative mb-4">
-                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-16 h-16 rounded-full shadow-lg mx-auto">
-                <div class="absolute top-0 right-0">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex-1"></div>
+                <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-16 h-16 rounded-full shadow-lg">
+                <div class="flex-1 flex justify-end">
                     <form method="post" action="/set-language" class="flex gap-1">
                         <button type="submit" name="lang" value="en" 
-                                class="px-1.5 py-0.5 rounded {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-gray-100 hover:bg-gray-200' }} text-xs font-medium transition-colors">
-                            EN
+                                class="px-2 py-1 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'en' else 'bg-gray-100 hover:bg-gray-200' }} text-xs font-medium transition-colors">
+                            🇺🇸 EN
                         </button>
                         <button type="submit" name="lang" value="sw" 
-                                class="px-1.5 py-0.5 rounded {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-gray-100 hover:bg-gray-200' }} text-xs font-medium transition-colors">
-                            SW
+                                class="px-2 py-1 rounded-lg {{ 'bg-yellow-500 text-white' if current_lang == 'sw' else 'bg-gray-100 hover:bg-gray-200' }} text-xs font-medium transition-colors">
+                            🇹🇿 SW
                         </button>
                     </form>
                 </div>
@@ -98,12 +97,8 @@
                 <select name="route" required
                         class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors">
                     <option value="">{{ translations.choose_route }}</option>
-                    {% for corridor, routes in routes_by_corridor.items() %}
-                        <optgroup label="🚌 {{ corridor }}">
-                            {% for route_name in routes.keys() %}
-                                <option value="{{ route_name }}">{{ route_name }}</option>
-                            {% endfor %}
-                        </optgroup>
+                    {% for route in routes %}
+                        <option value="{{ route }}">{{ route }}</option>
                     {% endfor %}
                 </select>
             </div>

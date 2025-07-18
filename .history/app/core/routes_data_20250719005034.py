@@ -195,22 +195,5 @@ daladala_routes_by_corridor = {
     "Mbezi Magufuli Corridor": {
         "Mbezi Magufuli - Kariakoo": {"start": {"lat": -6.698, "lon": 39.174}, "end": {"lat": -6.823, "lon": 39.282}},
         "Mbezi Magufuli - Ubungo": {"start": {"lat": -6.698, "lon": 39.174}, "end": {"lat": -6.775, "lon": 39.253}},
-    },
-
-    "Kimara Corridor": {
-        "Kimara - Ubungo": {"start": {"lat": -6.773, "lon": 39.168}, "end": {"lat": -6.775, "lon": 39.253}},
-        "Kimara - Mwenge": {"start": {"lat": -6.773, "lon": 39.168}, "end": {"lat": -6.774, "lon": 39.228}},
-        "Kimara - Posta": {"start": {"lat": -6.773, "lon": 39.168}, "end": {"lat": -6.817, "lon": 39.288}},
-    },
-
-    "Tegeta Corridor": {
-        "Tegeta - Mwenge": {"start": {"lat": -6.655, "lon": 39.208}, "end": {"lat": -6.774, "lon": 39.228}},
-        "Tegeta - Posta": {"start": {"lat": -6.655, "lon": 39.208}, "end": {"lat": -6.817, "lon": 39.288}},
-        "Tegeta - Kariakoo": {"start": {"lat": -6.655, "lon": 39.208}, "end": {"lat": -6.823, "lon": 39.282}},
-    },
-
-    "Mbezi Louis Corridor": {
-        "Mbezi Louis - Mwenge": {"start": {"lat": -6.759, "lon": 39.185}, "end": {"lat": -6.774, "lon": 39.228}},
-        "Mbezi Louis - Posta": {"start": {"lat": -6.759, "lon": 39.185}, "end": {"lat": -6.817, "lon": 39.288}},
     }
 }

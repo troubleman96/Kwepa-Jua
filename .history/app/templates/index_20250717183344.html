@@ -12,8 +12,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ translations.app_name }} - {{ translations.tagline }}</title>
-    <link rel="icon" type="image/jpeg" href="/static/icon.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="/static/icon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .loading-spinner {
@@ -98,12 +96,8 @@
                 <select name="route" required
                         class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors">
                     <option value="">{{ translations.choose_route }}</option>
-                    {% for corridor, routes in routes_by_corridor.items() %}
-                        <optgroup label="🚌 {{ corridor }}">
-                            {% for route_name in routes.keys() %}
-                                <option value="{{ route_name }}">{{ route_name }}</option>
-                            {% endfor %}
-                        </optgroup>
+                    {% for route in routes %}
+                        <option value="{{ route }}">{{ route }}</option>
                     {% endfor %}
                 </select>
             </div>
