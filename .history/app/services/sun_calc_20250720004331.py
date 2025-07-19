@@ -2,7 +2,7 @@ import math
 from datetime import datetime
 import pytz
 from astral import LocationInfo
-from astral.sun import azimuth, elevation
+from astral.sun import sun
 
 def calculate_bearing(route_data):
     """Calculate bearing between two points from route data"""
@@ -33,6 +33,8 @@ def get_sun_position(datetime_obj):
         datetime_obj = dar_tz.localize(datetime_obj)
     
     # Calculate sun position using astral
+    from astral.sun import azimuth, elevation
+    
     sun_azimuth = azimuth(city.observer, datetime_obj)
     sun_elevation = elevation(city.observer, datetime_obj)
     

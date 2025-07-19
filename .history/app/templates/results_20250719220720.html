@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ translations.app_name }} - {{ translations.results_title }}</title>
+    <link rel="icon" type="image/jpeg" href="/static/icon.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="/static/icon.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .result-card {
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .recommendation-card {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+         x-data="{ show: false }"
+         x-init="setTimeout(() => show = true, 100)"
+         x-show="show"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100">
+        
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+             x-transition:enter="transition ease-out duration-300 delay-150"
+             x-transition:enter-start="opacity-0 transform scale-95"
+             x-transition:enter-end="opacity-100 transform scale-100">
+            
+            <div class="text-center mb-6">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <img src="/static/icon.jpg" alt="Kwepa Jua" class="w-12 h-12 rounded-full shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold text-yellow-600">{{ translations.results_title }}</h1>
+                </div>
+                <p class="text-gray-600 text-sm md:text-base">{{ route }} {{ translations.at if current_lang == 'en' else 'saa' }} {{ time }}</p>
+            </div>
+
+            {% if is_daylight %}
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-100 p-4 md:p-6 rounded-xl mb-6 border-l-4 border-yellow-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-2xl">☀️</div>
+                        <h2 class="text-lg md:text-xl font-bold text-yellow-800">{{ translations.recommendation }}</h2>
+                    </div>
+                    <p class="text-yellow-800 text-lg md:text-xl font-semibold mb-2">{{ recommendation }}</p>
+                    <p class="text-yellow-700 text-sm md:text-base">{{ translations.sun_protection_tip }}</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="text-xl">🧭</div>
+                            <h3 class="font-semibold text-blue-800">{{ translations.route_direction }}</h3>
+                        </div>
+                        <p class="text-blue-700 text-lg font-bold">{{ bearing }}°</p>
+                    </div>
+
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="text-xl">☀️</div>
+                            <h3 class="font-semibold text-orange-800">{{ translations.sun_position }}</h3>
+                        </div>
+                        <p class="text-orange-700 text-sm">
+                            {{ translations.azimuth }}: {{ sun_azimuth }}°<br>
+                            {{ translations.elevation }}: {{ sun_elevation }}°
+                        </p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="bg-gradient-to-r from-blue-100 to-purple-100 p-4 md:p-6 rounded-xl mb-6 border-l-4 border-blue-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="text-2xl">🌙</div>
+                        <h2 class="text-lg md:text-xl font-bold text-blue-800">{{ translations.nighttime }}</h2>
+                    </div>
+                    <p class="text-blue-700 text-sm md:text-base">{{ translations.no_sun_advice }}</p>
+                </div>
+            {% endif %}
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="window.location.reload()" 
+                        class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                    {{ translations.try_again }}
+                </button>
+                <button onclick="document.getElementById('results-container').innerHTML = ''" 
+                        class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                    {{ translations.close if current_lang == 'en' else 'Funga' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function shareResult() {
+            const shareText = `{{ translations.sit_on }} {{ translations[recommendation] }} {{ translations.side }} {{ translations.for_shade }} - {{ translations.app_name }}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: '{{ translations.app_name }}',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('{{ "Result copied!" if current_lang == "en" else "Matokeo yamehifadhiwa!" }}');
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>

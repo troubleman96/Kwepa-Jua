@@ -52,13 +52,12 @@ def calculate_shade(
     bearing = calculate_bearing(daladala_routes[route])
     
     dar_tz = pytz.timezone('Africa/Dar_es_Salaam')
-    current_date = datetime.now(dar_tz).date()
-    now = dar_tz.localize(datetime.combine(current_date, datetime.min.time().replace(hour=hour, minute=minute)))
+    now = datetime.now(dar_tz).replace(hour=hour, minute=minute, second=0, microsecond=0)
     
     sun_azimuth, sun_elevation = get_sun_position(now)
     is_daylight = sun_elevation > 0
     
-    print(f"Debug: Time={now}, Sun elevation={sun_elevation}, Is daylight={is_daylight}")
+    print(f"Debug: Time={now}, Sun elevation={sun_elevation}, Is daylight={is_daylight}")  # Debug line
     
     best_side = determine_best_side(bearing, sun_azimuth, translations, lang) if is_daylight else None
     

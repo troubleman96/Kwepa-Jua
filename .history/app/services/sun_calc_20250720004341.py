@@ -1,8 +1,6 @@
 import math
 from datetime import datetime
 import pytz
-from astral import LocationInfo
-from astral.sun import azimuth, elevation
 
 def calculate_bearing(route_data):
     """Calculate bearing between two points from route data"""
@@ -23,20 +21,25 @@ def calculate_bearing(route_data):
     return bearing
 
 def get_sun_position(datetime_obj):
-    """Calculate sun position for Dar es Salaam coordinates using astral library"""
-    # Create location for Dar es Salaam
-    city = LocationInfo("Dar es Salaam", "Tanzania", "Africa/Dar_es_Salaam", -6.7924, 39.2083)
+    """Calculate sun position for Dar es Salaam coordinates"""
+    # Dar es Salaam coordinates
+    lat = -6.7924
+    lon = 39.2083
     
-    # Ensure datetime is timezone-aware
-    dar_tz = pytz.timezone('Africa/Dar_es_Salaam')
-    if datetime_obj.tzinfo is None:
-        datetime_obj = dar_tz.localize(datetime_obj)
+    # Simple sun position calculation
+    # This is a simplified version - for production use astral library
+    hour = datetime_obj.hour + datetime_obj.minute / 60.0
     
-    # Calculate sun position using astral
-    sun_azimuth = azimuth(city.observer, datetime_obj)
-    sun_elevation = elevation(city.observer, datetime_obj)
+    # Very basic sun elevation (negative at night)
+    if hour < 6 or hour > 18:
+        elevation = -30  # Night time
+        azimuth = 180
+    else:
+        # Simplified day calculation
+        elevation = 60 * math.sin(math.pi * (hour - 6) / 12)
+        azimuth = 90 + 180 * (hour - 6) / 12
     
-    return sun_azimuth, sun_elevation
+    return azimuth, elevation
 
 def determine_best_side(bearing, sun_azimuth, translations, lang):
     """Determine which side of the vehicle provides better shade"""

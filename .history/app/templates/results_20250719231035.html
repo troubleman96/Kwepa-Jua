@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ current_lang }}" class="scroll-smooth">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6878892693068963"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6XJXNQDXC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-Z6XJXNQDXC');
-</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ translations.app_name }} - {{ translations.results_title }}</title>
@@ -61,7 +51,7 @@
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100">
         
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-gray-200 bounce-in">
+        <div class="glass-effect p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-white/20 bounce-in">
             
             <!-- Header -->
             <div class="text-center mb-6 result-card">
@@ -71,12 +61,12 @@
                         <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
                     </div>
                     <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                        {{ translations.results_title }}
+                        Results
                     </h1>
                 </div>
                 <div class="bg-gray-100 rounded-full px-4 py-2 inline-block">
                     <p class="text-gray-700 text-sm md:text-base font-medium">
-                        <span class="font-semibold">{{ route }}</span> {{ translations.at if current_lang == 'en' else 'saa' }} <span class="font-mono">{{ time }}</span>
+                        <span class="font-semibold">{{ route }}</span> at <span class="font-mono">{{ time }}</span>
                     </p>
                 </div>
             </div>
@@ -85,22 +75,21 @@
                 <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-6 result-card" style="animation-delay: 0.2s;">
                     <div class="flex items-center gap-2">
                         <span class="text-xl">⚠️</span>
-                        <span class="font-semibold">{{ translations.error_title }}</span>
+                        <span class="font-semibold">{{ error }}</span>
                     </div>
                 </div>
             {% elif is_daylight %}
                 <!-- Recommendation Card -->
-                <div class="bg-gradient-to-br from-amber-200 via-yellow-300 to-orange-300 p-6 rounded-2xl mb-6 border-l-4 border-amber-500 shadow-xl result-card" 
-                     style="animation-delay: 0.2s; animation: glow 2s ease-in-out infinite alternate;">
+                <div class="bg-gradient-to-br from-yellow-100 to-orange-100 p-6 rounded-2xl mb-6 border-l-4 border-yellow-500 shadow-lg recommendation-card result-card" style="animation-delay: 0.2s;">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="text-4xl animate-bounce" style="animation-duration: 1.5s;">🪑</div>
-                        <h2 class="text-xl font-bold text-amber-900">{{ translations.recommendation }}</h2>
+                        <div class="text-3xl animate-bounce">☀️</div>
+                        <h2 class="text-xl font-bold text-yellow-800">Recommendation</h2>
                     </div>
-                    <p class="text-amber-900 text-2xl font-bold mb-3 animate-pulse">{{ recommendation }}</p>
-                    <div class="flex items-center gap-2 bg-amber-100/80 p-3 rounded-lg backdrop-blur-sm">
-                        <span class="text-lg animate-bounce" style="animation-delay: 0.3s; animation-duration: 1.2s;">🛡️</span>
-                        <p class="text-amber-800 font-medium">{{ translations.stay_protected }}</p>
-                    </div>
+                    <p class="text-yellow-800 text-xl font-bold mb-2">{{ recommendation }}</p>
+                    <p class="text-yellow-700 text-sm flex items-center gap-2">
+                        <span class="text-base">🛡️</span>
+                        Stay protected from the sun!
+                    </p>
                 </div>
 
                 <!-- Info Cards Grid -->
@@ -108,23 +97,24 @@
                     <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-xl shadow-md border border-blue-200 result-card" style="animation-delay: 0.4s;">
                         <div class="flex items-center gap-3 mb-3">
                             <div class="text-2xl">🧭</div>
-                            <h3 class="font-bold text-blue-800">{{ translations.route_direction }}</h3>
+                            <h3 class="font-bold text-blue-800">Route Direction</h3>
                         </div>
                         <p class="text-blue-700 text-2xl font-bold">{{ bearing }}°</p>
+                        <p class="text-blue-600 text-xs mt-1">Travel bearing</p>
                     </div>
 
                     <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-xl shadow-md border border-orange-200 result-card" style="animation-delay: 0.6s;">
                         <div class="flex items-center gap-3 mb-3">
                             <div class="text-2xl">☀️</div>
-                            <h3 class="font-bold text-orange-800">{{ translations.sun_position_short }}</h3>
+                            <h3 class="font-bold text-orange-800">Sun Position</h3>
                         </div>
-                        <div class="space-y-2">
-                            <p class="text-orange-700 text-lg font-bold">{{ sun_azimuth }}°</p>
-                            <div class="flex items-center gap-2">
-                                <span class="text-lg">📐</span>
-                                <span class="font-semibold text-orange-800">{{ translations.elevation_short }}</span>
-                            </div>
-                            <p class="text-orange-700 text-lg font-bold">{{ sun_elevation }}°</p>
+                        <div class="space-y-1">
+                            <p class="text-orange-700 text-sm">
+                                <span class="font-semibold">Azimuth:</span> {{ sun_azimuth }}°
+                            </p>
+                            <p class="text-orange-700 text-sm">
+                                <span class="font-semibold">Elevation:</span> {{ sun_elevation }}°
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -133,12 +123,12 @@
                 <div class="bg-gradient-to-br from-blue-100 to-purple-100 p-6 rounded-2xl mb-6 border-l-4 border-blue-500 shadow-lg result-card" style="animation-delay: 0.2s;">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="text-3xl">🌙</div>
-                        <h2 class="text-xl font-bold text-blue-800">{{ translations.nighttime }}</h2>
+                        <h2 class="text-xl font-bold text-blue-800">Nighttime</h2>
                     </div>
-                    <p class="text-blue-700 text-base">{{ translations.no_sun_protection }}</p>
+                    <p class="text-blue-700 text-base">No sun protection needed at this time.</p>
                     <p class="text-blue-600 text-sm mt-2 flex items-center gap-2">
                         <span>✨</span>
-                        {{ translations.enjoy_journey }}
+                        Enjoy your comfortable journey!
                     </p>
                 </div>
             {% endif %}
@@ -150,18 +140,35 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>
-                    {{ translations.try_again }}
+                    Try Again
                 </button>
                 <button onclick="document.getElementById('results-container').innerHTML = ''" 
                         class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
-                    {{ translations.close }}
+                    Close
                 </button>
             </div>
         </div>
     </div>
+
+    <script>
+        function shareResult() {
+            const shareText = `{{ translations.sit_on }} {{ translations[recommendation] }} {{ translations.side }} {{ translations.for_shade }} - {{ translations.app_name }}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: '{{ translations.app_name }}',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('{{ "Result copied!" if current_lang == "en" else "Matokeo yamehifadhiwa!" }}');
+                });
+            }
+        }
+    </script>
 
 </body>
 </html>

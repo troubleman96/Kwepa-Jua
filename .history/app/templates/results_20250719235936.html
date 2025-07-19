@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ current_lang }}" class="scroll-smooth">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6878892693068963"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6XJXNQDXC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-Z6XJXNQDXC');
-</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ translations.app_name }} - {{ translations.results_title }}</title>
@@ -90,16 +80,15 @@
                 </div>
             {% elif is_daylight %}
                 <!-- Recommendation Card -->
-                <div class="bg-gradient-to-br from-amber-200 via-yellow-300 to-orange-300 p-6 rounded-2xl mb-6 border-l-4 border-amber-500 shadow-xl result-card" 
-                     style="animation-delay: 0.2s; animation: glow 2s ease-in-out infinite alternate;">
+                <div class="bg-gradient-to-br from-yellow-100 to-orange-100 p-6 rounded-2xl mb-6 border-l-4 border-yellow-500 shadow-lg recommendation-card result-card animate-pulse" style="animation-delay: 0.2s;">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="text-4xl animate-bounce" style="animation-duration: 1.5s;">🪑</div>
-                        <h2 class="text-xl font-bold text-amber-900">{{ translations.recommendation }}</h2>
+                        <div class="text-4xl animate-bounce">🪑</div>
+                        <h2 class="text-xl font-bold text-yellow-800">{{ translations.recommendation }}</h2>
                     </div>
-                    <p class="text-amber-900 text-2xl font-bold mb-3 animate-pulse">{{ recommendation }}</p>
-                    <div class="flex items-center gap-2 bg-amber-100/80 p-3 rounded-lg backdrop-blur-sm">
-                        <span class="text-lg animate-bounce" style="animation-delay: 0.3s; animation-duration: 1.2s;">🛡️</span>
-                        <p class="text-amber-800 font-medium">{{ translations.stay_protected }}</p>
+                    <p class="text-yellow-800 text-2xl font-bold mb-3">{{ recommendation }}</p>
+                    <div class="flex items-center gap-2 bg-yellow-50 p-3 rounded-lg">
+                        <span class="text-lg animate-bounce" style="animation-delay: 0.2s;">🛡️</span>
+                        <p class="text-yellow-700 font-medium">{{ translations.stay_protected }}</p>
                     </div>
                 </div>
 
@@ -118,13 +107,13 @@
                             <div class="text-2xl">☀️</div>
                             <h3 class="font-bold text-orange-800">{{ translations.sun_position_short }}</h3>
                         </div>
-                        <div class="space-y-2">
-                            <p class="text-orange-700 text-lg font-bold">{{ sun_azimuth }}°</p>
-                            <div class="flex items-center gap-2">
-                                <span class="text-lg">📐</span>
-                                <span class="font-semibold text-orange-800">{{ translations.elevation_short }}</span>
-                            </div>
-                            <p class="text-orange-700 text-lg font-bold">{{ sun_elevation }}°</p>
+                        <div class="space-y-1">
+                            <p class="text-orange-700 text-sm">
+                                <span class="font-semibold">{{ translations.azimuth }}</span> {{ sun_azimuth }}°
+                            </p>
+                            <p class="text-orange-700 text-sm">
+                                <span class="font-semibold">{{ translations.elevation }}</span> {{ sun_elevation }}°
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -141,6 +130,21 @@
                         {{ translations.enjoy_journey }}
                     </p>
                 </div>
+            {% endif %}
+
+            <!-- Key Output - Animated Recommendation -->
+            {% if is_daylight %}
+            <div class="bg-gradient-to-br from-green-100 to-emerald-100 p-6 rounded-2xl mb-6 border-l-4 border-green-500 shadow-lg result-card animate-pulse" style="animation-delay: 0.7s;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="text-4xl animate-bounce">🪑</div>
+                    <h2 class="text-xl font-bold text-green-800">{{ translations.recommendation }}</h2>
+                </div>
+                <p class="text-green-800 text-2xl font-bold mb-3">{{ recommendation }}</p>
+                <div class="flex items-center gap-2 bg-green-50 p-3 rounded-lg">
+                    <span class="text-lg animate-bounce" style="animation-delay: 0.2s;">🛡️</span>
+                    <p class="text-green-700 font-medium">{{ translations.stay_protected }}</p>
+                </div>
+            </div>
             {% endif %}
 
             <!-- Action Buttons -->
